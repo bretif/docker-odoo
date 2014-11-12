@@ -1,4 +1,4 @@
-FROM        phusion/baseimage
+FROM        phusion/baseimage:0.9.15
 MAINTAINER  Bertrand RETIF  <bretif@sudokeys.com>
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
