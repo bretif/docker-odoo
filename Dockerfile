@@ -14,41 +14,33 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     python-babel python-decorator python-psutil python-pypdf \
     wget
 
+RUN pip install passlib
+
 # install wkhtmltopdf
 RUN wget https://s3.amazonaws.com/akretion/packages/wkhtmltox-0.12.1_linux-trusty-amd64.deb && \
     dpkg -i wkhtmltox-0.12.1_linux-trusty-amd64.deb && rm wkhtmltox-0.12.1_linux-trusty-amd64.deb
 
-ENV AUTOSTART False
-ENV ADMIN_PASSWORD odooadmin
-ENV PSQL_HOST db
-ENV PSQL_PORT 5432
-ENV PSQL_USER odoo
-ENV PSQL_PASSWORD odoopass
+ENV AUTOSTART True
 
 RUN useradd -d /home/odoo -m odoo
 RUN git clone -b8.0 https://github.com/odoo/odoo.git /home/odoo/server
+RUN chown -R odoo /home/odoo
 
 # Odoo conf
-ADD odoo.conf /home/odoo/server/odoo.conf
-RUN sed -i "s/^admin_passwd.*/admin_passwd = ${ADMIN_PASSWORD}/g" /home/odoo/server/odoo.conf
-RUN sed -i "s/^db_host.*/db_host = ${PSQL_HOST}/g" /home/odoo/server/odoo.conf
-RUN sed -i "s/^db_port.*/db_port = ${PSQL_PORT}/g" /home/odoo/server/odoo.conf
-RUN sed -i "s/^db_user.*/db_user = ${PSQL_USER}/g" /home/odoo/server/odoo.conf
-RUN sed -i "s/^db_password.*/db_password = ${PSQL_PASSWORD}/g" /home/odoo/server/odoo.conf
-RUN chown odoo /home/odoo/server/odoo.conf
-
-RUN chown -R odoo /home/odoo
+RUN mkdir /etc/odoo
+ADD odoo.conf /etc/odoo/odoo.conf
+RUN chown -R odoo /etc/odoo
 
 # Odoo daemon
 RUN mkdir /etc/service/odoo
 ADD run_odoo.sh /etc/service/odoo/run
-
+RUN chmod +x /etc/service/odoo/run
 # Expose the odoo port
 EXPOSE 8069
 
-VOLUME ["/home/odoo"]
+VOLUME  ["/etc/odoo", "/var/log/", "/home/odoo"]
 
-ENTRYPOINT ["/sbin/my_init"]
+CMD ["/sbin/my_init"]
 
 # Add my public keys
 ADD pubkeys /tmp/pubkeys
