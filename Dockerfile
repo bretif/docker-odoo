@@ -21,6 +21,12 @@ RUN wget https://s3.amazonaws.com/akretion/packages/wkhtmltox-0.12.1_linux-trust
     dpkg -i wkhtmltox-0.12.1_linux-trusty-amd64.deb && rm wkhtmltox-0.12.1_linux-trusty-amd64.deb
 
 ENV AUTOSTART True
+ENV ADMIN_PASSWORD odooadmin
+ENV PSQL_HOST odoo-database
+ENV PSQL_PORT 5432
+ENV PSQL_USER odoo
+ENV PSQL_PASSWORD odoopass
+
 
 RUN useradd -d /home/odoo -m odoo
 RUN git clone -b8.0 https://github.com/odoo/odoo.git /home/odoo/server
@@ -28,7 +34,6 @@ RUN chown -R odoo /home/odoo
 
 # Odoo conf
 RUN mkdir /etc/odoo
-ADD odoo.conf /etc/odoo/odoo.conf
 RUN chown -R odoo /etc/odoo
 
 # Odoo daemon
