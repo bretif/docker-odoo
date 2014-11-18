@@ -30,7 +30,7 @@ Example
 
     docker run --name myodoo -d --link mydb:odoo-database -p 80:8069 odoo:v1
 
-### Startup configuration
+### Odoo configuration
 
 You can specify odoo configuration at startup with the -e (environment variable) option for ADMIN_PASSWORD, PSQL_HOST, PSQL_PORT, PSQL_USER and PSQL_PASSWORD 
 
