@@ -36,6 +36,14 @@ RUN chown -R odoo /home/odoo
 RUN mkdir /etc/odoo
 RUN chown -R odoo /etc/odoo
 
+# Odoo data
+RUN mkdir /data
+RUN chown -R odoo /data
+
+# Odoo log
+RUN mkdir /var/log/odoo
+RUN chown -R odoo /var/log/odoo
+
 # Odoo daemon
 RUN mkdir /etc/service/odoo
 ADD run_odoo.sh /etc/service/odoo/run
@@ -43,7 +51,7 @@ RUN chmod +x /etc/service/odoo/run
 # Expose the odoo port
 EXPOSE 8069
 
-VOLUME  ["/etc/odoo", "/var/log/", "/home/odoo"]
+VOLUME  ["/etc/odoo", "/var/log/odoo", "/data"]
 
 CMD ["/sbin/my_init"]
 

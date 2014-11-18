@@ -1,7 +1,7 @@
 #!/bin/sh
 WORKDIR="/home/odoo/server"
 CONFDIR="/etc/odoo"
-LOGDIR="/var/log"
+LOGDIR="/var/log/odoo"
 
 [ "${AUTOSTART}" = 'True' -a -x "${WORKDIR}"/odoo.py ] || exit 0
 
@@ -18,6 +18,7 @@ db_user = ${PSQL_USER}
 db_password = ${PSQL_PASSWORD}
 xmlrpc_interface = 0.0.0.0
 xmlrpc_port = 8069
+data_dir = /data
 addons_path = /home/odoo/server/addons
 ; Log settings
 syslog = False
