@@ -30,7 +30,13 @@ Example
 
     docker run --name myodoo -d --link mydb:odoo-database -p 80:8069 odoo:v1
 
-## Run the container with a shell
+### Startup configuration
+
+You can specify odoo configuration at startup with the -e (environment variable) option for ADMIN_PASSWORD, PSQL_HOST, PSQL_PORT, PSQL_USER and PSQL_PASSWORD 
+
+    docker run --name myodoo -d --link mydb:odoo-database -p 80:8069 -e "PSQL_USER=odootest" -e "PSQL_PASSWORD=odootest" odoo:v1
+    
+## Run a shell in the container
 If your postgres container isn't ready yet or you just want to look around with a shell
 
     docker run --name myodoo -t -i odoo:v1 /bin/bash
