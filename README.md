@@ -11,7 +11,7 @@ To create a postgre user for odoo you can run from inside the progres container 
     createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt odoo8
  
 ##Build odoo container
-You can modify the odoo.conf file according to your postgres user.
+Before building you can ajust odoo default configuration to your needs in run_odoo.sh and in the Dockerfile for the environments variables
 
 Then build the odoo container with
 
@@ -30,7 +30,13 @@ Example
 
     docker run --name myodoo -d --link mydb:odoo-database -p 80:8069 odoo:v1
 
-## Run the container with a shell
+### Odoo configuration
+
+You can specify odoo configuration at startup with the -e (environment variable) option for ADMIN_PASSWORD, PSQL_HOST, PSQL_PORT, PSQL_USER and PSQL_PASSWORD 
+
+    docker run --name myodoo -d --link mydb:odoo-database -p 80:8069 -e "PSQL_USER=odootest" -e "PSQL_PASSWORD=odootest" odoo:v1
+    
+## Run a shell in the container
 If your postgres container isn't ready yet or you just want to look around with a shell
 
     docker run --name myodoo -t -i odoo:v1 /bin/bash
