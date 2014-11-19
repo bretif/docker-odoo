@@ -29,7 +29,7 @@ fi
 
 su odoo -c "${WORKDIR}/odoo.py -c ${CONFDIR}/odoo.conf ${CMDLINE_PARAM}" >> "${LOGDIR}"/odoo.log 2>&1
 
-# Script should not exit unless seafile died
+# Script should not exit unless odoo died
 while pgrep -f "odoo.py" 2>&1 >/dev/null; do
         sleep 10;
 done
