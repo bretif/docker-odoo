@@ -22,12 +22,14 @@ data_dir = /data
 addons_path = /home/odoo/server/addons
 ; Log settings
 syslog = False
-log_level = info
+logfile = ${LOGDIR}/odoo.log
+log_level = debug
+
 EOF
 
 fi
 
-su odoo -c "${WORKDIR}/odoo.py -c ${CONFDIR}/odoo.conf ${CMDLINE_PARAM}" >> "${LOGDIR}"/odoo.log 2>&1
+su odoo -c "${WORKDIR}/odoo.py -c ${CONFDIR}/odoo.conf ${CMDLINE_PARAM}"
 
 # Script should not exit unless odoo died
 while pgrep -f "odoo.py" 2>&1 >/dev/null; do
