@@ -1,15 +1,12 @@
 #!/bin/sh
-WORKDIR="/home/odoo/server"
-CONFDIR="/etc/odoo"
-LOGDIR="/var/log/odoo"
+CONF_FILENAME="odoo.conf"
 
-[ "${AUTOSTART}" = 'True' -a -x "${WORKDIR}"/odoo.py ] || exit 0
-
-if [ -f "${CONFDIR}"/odoo.conf ]; then
+if [ -f "${CONF_DIR}/${CONF_FILENAME}" ];
+then
 	echo "Config file found"
 else
 	echo "Configuration file not found. Creating it"
-	cat > "${CONFDIR}"/odoo.conf <<-EOF
+	cat > "${CONF_DIR}/${CONF_FILENAME}" <<-EOF
 [options]
 admin_passwd = ${ADMIN_PASSWORD}
 db_host = ${PSQL_HOST}
@@ -18,23 +15,17 @@ db_user = ${PSQL_USER}
 db_password = ${PSQL_PASSWORD}
 xmlrpc_interface = 0.0.0.0
 xmlrpc_port = 8069
-data_dir = /data
-addons_path = /home/odoo/server/addons
+data_dir = ${DATA_DIR}
+addons_path = ${BIN_DIR}/addons
 ; Log settings
 syslog = False
-logfile = ${LOGDIR}/odoo.log
+logfile = ${LOG_DIR}/odoo.log
 log_level = debug
 
 EOF
 
 fi
 
-su odoo -c "${WORKDIR}/odoo.py -c ${CONFDIR}/odoo.conf ${CMDLINE_PARAM}"
+exec /sbin/setuser ${ODOO_USER} ${BIN_DIR}/odoo.py -c ${CONF_DIR}/${CONF_FILENAME} ${CMDLINE_PARAM}
 
-# Script should not exit unless odoo died
-while pgrep -f "odoo.py" 2>&1 >/dev/null; do
-        sleep 10;
-done
-
-exit 1
 
