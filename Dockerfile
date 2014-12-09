@@ -23,6 +23,8 @@ ENV PSQL_HOST odoo-database
 ENV PSQL_PORT 5432
 ENV PSQL_USER odoo
 ENV PSQL_ROOT_USER root
+
+#Should not be changed at run time
 ENV ODOO_USER odoo
 ENV BIN_DIR /home/${ODOO_USER}/server
 ENV CONF_DIR /etc/odoo
