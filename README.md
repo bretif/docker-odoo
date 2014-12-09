@@ -24,7 +24,7 @@ Here are the following environments variables and their default values that you 
     PSQL_PORT                 5432
     PSQL_USER                 odoo
     PSQL_ROOT_USER            root
-    PSQL_ROOT_PASS            **None : need to be filled if you want odoo to auto-create the postgres user**
+    PSQL_ROOT_PASS            None : need to be filled if you want odoo to auto-create the postgres user
     PSQL_PASS                 randomly generated if not specified
 
     
