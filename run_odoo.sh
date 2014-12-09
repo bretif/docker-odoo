@@ -20,7 +20,7 @@ addons_path = ${BIN_DIR}/addons
 ; Log settings
 syslog = False
 logfile = ${LOG_DIR}/odoo.log
-log_level = debug
+log_level = info
 
 EOF
 
