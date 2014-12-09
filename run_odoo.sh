@@ -6,10 +6,8 @@ PSQL_PASS=${PSQL_PASS:-$(pwgen -s -1 16)}
 CONF_FILENAME="odoo.conf"
 
 # Create config file if it doesn't exist
-if [ -f "${CONF_DIR}/${CONF_FILENAME}" ]
+if [ ! -f "${CONF_DIR}/${CONF_FILENAME}" ] && [ "${autoconf}" = 'true' ]
 then
-	echo "Config file found"
-else
 	echo "Configuration file not found. Creating it"
 	cat > "${CONF_DIR}/${CONF_FILENAME}" <<-EOF
 [options]
@@ -37,6 +35,9 @@ EOF
 		psql --command "ALTER USER ${PSQL_USER} WITH PASSWORD '${PSQL_PASS}';" -h ${PSQL_HOST} -d postgres
 	fi
 fi
+
+
+[ "${autostart}" = 'true' ] || exit 0
 
 #Run odoo  process
 exec /sbin/setuser ${ODOO_USER} ${BIN_DIR}/odoo.py -c ${CONF_DIR}/${CONF_FILENAME} ${CMDLINE_PARAM}

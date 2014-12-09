@@ -18,6 +18,8 @@ RUN DEBIAN_FRONTEND=noninteractive && \
 RUN wget https://s3.amazonaws.com/akretion/packages/wkhtmltox-0.12.1_linux-trusty-amd64.deb && \
     dpkg -i wkhtmltox-0.12.1_linux-trusty-amd64.deb && rm wkhtmltox-0.12.1_linux-trusty-amd64.deb
 
+ENV autostart true
+ENV autoconf true
 ENV ADMIN_PASS odooadmin
 ENV PSQL_HOST odoo-database
 ENV PSQL_PORT 5432
