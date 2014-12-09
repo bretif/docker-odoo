@@ -31,8 +31,15 @@ Example
     docker run --name myodoo -d --link mydb:odoo-database -p 80:8069 odoo:v1
 
 ### Odoo configuration
+Here are the following environments variables and their default values that you can modify when running the container :
+* ADMIN_PASSWORD odooadmin
+* PSQL_HOST odoo-database
+* PSQL_PORT 5432
+* PSQL_USER odoo
+* PSQL_PASSWORD odoopass
 
-You can specify odoo configuration at startup with the -e (environment variable) option for ADMIN_PASSWORD, PSQL_HOST, PSQL_PORT, PSQL_USER and PSQL_PASSWORD 
+
+You can specify odoo configuration at startup with the -e option
 
     docker run --name myodoo -d --link mydb:odoo-database -p 80:8069 -e "PSQL_USER=odootest" -e "PSQL_PASSWORD=odootest" odoo:v1
     
