@@ -29,6 +29,9 @@ ENV CONF_DIR /etc/odoo
 ENV LOG_DIR /var/log/odoo
 ENV DATA_DIR /data
 
+#Disable SSH
+RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
+
 RUN useradd -d /home/${ODOO_USER} -m ${ODOO_USER}
 RUN git clone -b8.0 https://github.com/odoo/odoo.git ${BIN_DIR}
 RUN chown -R ${ODOO_USER} ${BIN_DIR}
@@ -55,11 +58,6 @@ EXPOSE 8069
 VOLUME  ["${CONF_DIR}", "${LOG_DIR}", "${DATA_DIR}"]
 
 CMD ["/sbin/my_init"]
-
-# copy my public keys
-COPY pubkeys /tmp/pubkeys
-RUN cat /tmp/pubkeys/*.pub >> /root/.ssh/authorized_keys && rm -rf /tmp/pubkeys/
-EXPOSE 22
 
 # Clean up for smaller image
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
