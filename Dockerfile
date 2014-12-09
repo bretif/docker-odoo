@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     python-webdav python-xlwt python-yaml python-zsi python-docutils python-unittest2 \
     python-mock python-jinja2 libevent-dev libxslt1-dev libfreetype6-dev libjpeg8-dev \
     python-werkzeug libjpeg-dev build-essential python-svn python-simplejson \
-    python-babel python-decorator python-psutil python-pypdf wget rsync && \
+    python-babel python-decorator python-psutil python-pypdf wget rsync postgresql-client-9.3 pwgen && \
     pip install passlib 
 
 # install wkhtmltopdf
@@ -22,7 +22,7 @@ ENV ADMIN_PASSWORD odooadmin
 ENV PSQL_HOST odoo-database
 ENV PSQL_PORT 5432
 ENV PSQL_USER odoo
-ENV PSQL_PASSWORD odoopass
+ENV PSQL_ROOT_USER root
 ENV ODOO_USER odoo
 ENV BIN_DIR /home/${ODOO_USER}/server
 ENV CONF_DIR /etc/odoo
