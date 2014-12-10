@@ -1,5 +1,5 @@
-FROM        phusion/baseimage:0.9.15
-MAINTAINER  Bertrand RETIF  <bretif@sudokeys.com>
+FROM        guilhem30/sudokeys
+MAINTAINER  Guilhem Berna  <guilhem.berna@gmail.com>
 
 RUN DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
@@ -32,9 +32,6 @@ ENV BIN_DIR /home/${ODOO_USER}/server
 ENV CONF_DIR /etc/odoo
 ENV LOG_DIR /var/log/odoo
 ENV DATA_DIR /data
-
-#Disable SSH
-RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 RUN useradd -d /home/${ODOO_USER} -m ${ODOO_USER}
 RUN git clone -b8.0 https://github.com/odoo/odoo.git ${BIN_DIR}
