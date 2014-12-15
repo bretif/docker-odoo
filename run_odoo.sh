@@ -27,7 +27,7 @@ log_level = info
 EOF
 
 	# Create user in postgres if root pass is specified
-	if [ -n $PSQL_ROOT_USER ] && [ -n $PSQL_ROOT_PASS ]
+	if [ ! -z $PSQL_ROOT_USER ] && [ ! -z $PSQL_ROOT_PASS ]
 		then
 		echo "${PSQL_HOST}:${PSQL_PORT}:postgres:${PSQL_ROOT_USER}:${PSQL_ROOT_PASS}" > /root/.pgpass
 		chmod 600 /root/.pgpass
