@@ -20,14 +20,17 @@ RUN wget https://s3.amazonaws.com/akretion/packages/wkhtmltox-0.12.1_linux-trust
 
 ENV autostart true
 ENV autoconf true
+ENV autonginx true
 ENV ADMIN_PASS odooadmin
 ENV PSQL_HOST odoo-database
 ENV PSQL_PORT 5432
 ENV PSQL_USER odoo
 ENV PSQL_ROOT_USER root
-
+ENV DOMAIN_NAME odoo.sudokeys.com
 #Should not be changed at run time
 ENV ODOO_USER odoo
+ENV ODOO_PORT 8069
+ENV ODOO_IP 127.0.0.1
 ENV BIN_DIR /home/${ODOO_USER}/server
 ENV CONF_DIR /etc/odoo
 ENV LOG_DIR /var/log/odoo
@@ -53,6 +56,11 @@ RUN chown -R ${ODOO_USER} ${LOG_DIR}
 RUN mkdir /etc/service/odoo
 COPY run_odoo.sh /etc/service/odoo/run
 RUN chmod +x /etc/service/odoo/run
+
+# Nginx autoconfiguration
+COPY create_nginx_config.sh /etc/my_init.d/create_nginx_config.sh
+COPY nginx.conf /root/nginx.conf
+
 # Expose the odoo port
 EXPOSE 8069
 

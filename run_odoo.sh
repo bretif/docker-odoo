@@ -17,7 +17,7 @@ db_port = ${PSQL_PORT}
 db_user = ${PSQL_USER}
 db_password = ${PSQL_PASS}
 xmlrpc_interface = 0.0.0.0
-xmlrpc_port = 8069
+xmlrpc_port = ${ODOO_PORT}
 data_dir = ${DATA_DIR}
 addons_path = ${BIN_DIR}/addons
 ; Log settings
