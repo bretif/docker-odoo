@@ -19,6 +19,10 @@ You need to specify PSQL_ROOT_PASS for odoo to create a user automatically with 
 ### All startup options configuration
 Here are the following environments variables and their default values that you can modify when running the container :
 
+
+    autostart                 true
+    autoconf                  true
+    autonginx                 true
     ADMIN_PASS                odooadmin    
     PSQL_HOST                 odoo-database
     PSQL_PORT                 5432
@@ -26,6 +30,9 @@ Here are the following environments variables and their default values that you 
     PSQL_ROOT_USER            root
     PSQL_ROOT_PASS            None : need to be filled if you want odoo to auto-create the postgres user
     PSQL_PASS                 randomly generated if not specified
+    DOMAIN_NAME               odoo.sudokeys.com
+    ODOO_PORT                 8069
+    ODOO_IP                   127.0.0.1
 
     
 ## Run a shell in the container
