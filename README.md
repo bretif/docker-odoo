@@ -16,6 +16,13 @@ You need to specify PSQL_ROOT_PASS for odoo to create a user automatically with 
 
     docker run --name myodoo -d --link mydb:odoo-database -p 80:8069 -e "PSQL_ROOT_PASS=yourpass" bretif/odoo
 
+## Configure nginx
+Example with nginx autoconfiguration
+    docker run -d --name myodoo --volumes-from nginx -p 8069:8069 -e "ADMIN_PASS=myadminpass" \
+        -e "PSQL_ROOT_PASS=yourpass" -e "DOMAIN_NAME=mydomain" -e "ODOO_IP=container.XXX" \
+        -e "ODOO_PORT=869" bretif/odoo
+
+
 ### All startup options configuration
 Here are the following environments variables and their default values that you can modify when running the container :
 
@@ -30,14 +37,9 @@ Here are the following environments variables and their default values that you 
     PSQL_ROOT_USER            root
     PSQL_ROOT_PASS            None : need to be filled if you want odoo to auto-create the postgres user
     PSQL_PASS                 randomly generated if not specified
-    DOMAIN_NAME               odoo.sudokeys.com
-    ODOO_PORT                 8069
-    ODOO_IP                   127.0.0.1
+    DOMAIN_NAME     Domain configured in Nginx container
+    ODOO_IP         Name or IP of the container used in nginx vhost. Must be resolved by nginx.
+    ODOO_PORT       Odoo port used in nginx configuration.
 
-    
-## Run a shell in the container
-Use docker exec to run a bash process in an existing container
-
-    docker exec -t -i container_name bash
 
 
