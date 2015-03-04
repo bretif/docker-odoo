@@ -1,5 +1,5 @@
-FROM        guilhem30/sudokeys
-MAINTAINER  Guilhem Berna  <guilhem.berna@gmail.com>
+FROM        sudokeys/baseimage
+MAINTAINER  Bertrand Retif <bertrand@sudokeys.com>
 
 RUN DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
